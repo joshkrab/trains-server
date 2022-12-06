@@ -30,29 +30,32 @@ const start = async (req, res) => {
 				body += chunk.toString();
 			})
 
-			req.on('end', () => {
+			req.on('end', async () => {
 				// let params = parse(body);
 				// console.log(params);
 				// console.log(body);
 
 				const bodyJson = JSON.parse(body);
 				console.log(bodyJson);
-				console.log(bodyJson.age);
-				res.end('Body ok');
+
+				const trains = client.db().collection('trains');
+				await trains.insertOne(bodyJson);
+				res.writeHead(200);
+				res.end('Record created!');
 			})
 		};
 
 		// await client.db().createCollection('users'); 
-		const users = client.db().collection('users');
+		// const users = client.db().collection('users');
 		// await users.insertOne({
 		// 	name: 'Ihor',
 		// 	age: 22,
 		// });
-		const user = await users.findOne({ name: 'Ihor' });
+		// const user = await users.findOne({ name: 'Ihor' });
 		// console.log(user);
 
-		res.writeHead(200);
-    res.end("My server!");
+		// res.writeHead(200);
+    // res.end("My server!");
 	} catch (error) {
 		console.log(error);
 	}
