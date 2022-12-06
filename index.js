@@ -13,15 +13,21 @@ const start = async (req, res) => {
 		console.log(req.method);
 
 		if (req.method === 'GET') {
-			let urlRequest = url.parse(req.url, true);
+		// 	let urlRequest = url.parse(req.url, true);
 		// console.log(urlRequest);
-		if (urlRequest.query.test % 2 === 0) {
+		// if (urlRequest.query.test % 2 === 0) {
+		// 	res.writeHead(200);
+    //   res.end("Even");
+		// } else {
+		// 	res.writeHead(200);
+    //   res.end("Odd");
+		// 	};
+			
+			const trains = client.db().collection('trains');
+			const result = await trains.find({});
+			console.log(result);
 			res.writeHead(200);
-      res.end("Even");
-		} else {
-			res.writeHead(200);
-      res.end("Odd");
-			};
+			res.end('ok');
 		};
 
 		if (req.method === 'POST') {
@@ -42,7 +48,7 @@ const start = async (req, res) => {
 				await trains.insertOne(bodyJson);
 				res.writeHead(200);
 				res.end('Record created!');
-			})
+			});
 		};
 
 		// await client.db().createCollection('users'); 
