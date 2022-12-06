@@ -14,20 +14,35 @@ const start = async (req, res) => {
 		console.log(req.method);
 
 		if (req.method === 'GET') {
-		// 	let urlRequest = url.parse(req.url, true);
-		// console.log(urlRequest);
-		// if (urlRequest.query.test % 2 === 0) {
-		// 	res.writeHead(200);
-    //   res.end("Even");
-		// } else {
-		// 	res.writeHead(200);
-    //   res.end("Odd");
-		// 	};
 
+			let urlRequest = url.parse(req.url, true);
+			let sort = urlRequest.query.sort || 'startDate';
+			let search = urlRequest.query.search ?
+				{
+					$or: [
+						{ startCity: { '$regex': `${urlRequest.query.search}`, '$options': 'i' } },
+						{ finishCity: { '$regex': `${urlRequest.query.search}`, '$options': 'i' } }
+					]
+				} :
+				{};
+
+			const result = await trains.find(search).sort(sort).toArray();
+
+			res.setHeader('Content-Type', 'application/json');
+			res.writeHead(200);
+			res.end(JSON.stringify(result));
+		};
+
+		if (req.method === 'DELETE') {
+			let urlRequest = url.parse(req.url, true);
+				console.log(urlRequest.query.id);
+				const conditions = {
+					_id: new ObjectId(urlRequest.query.id)
+				};
+
+			await trains.deleteOne(conditions);
+	
 			const result = await trains.find().toArray();
-			// console.log(result);
-			// console.log(JSON.stringify(result));
-
 			res.setHeader('Content-Type', 'application/json');
 			res.writeHead(200);
 			res.end(JSON.stringify(result));
@@ -45,11 +60,12 @@ const start = async (req, res) => {
 				// console.log(body);
 
 				const bodyJson = JSON.parse(body);
-				//console.log(bodyJson);
 
 				await trains.insertOne(bodyJson);
+				const result = await trains.find().toArray();
+				res.setHeader('Content-Type', 'application/json');
 				res.writeHead(200);
-				res.end('Record created!');
+				res.end(JSON.stringify(result));
 			});
 		};
 
@@ -70,9 +86,6 @@ const start = async (req, res) => {
 
 				await trains.updateOne(conditions, { $set: bodyJson });
 
-				// let train = await trains.findOne({ _id: urlRequest.query.id });
-				// console.log(train);
-
 				const result = await trains.find().toArray();
 
 				res.setHeader('Content-Type', 'application/json');
@@ -81,17 +94,6 @@ const start = async (req, res) => {
 			});
 		};
 
-		// await client.db().createCollection('users'); 
-		// const users = client.db().collection('users');
-		// await users.insertOne({
-		// 	name: 'Ihor',
-		// 	age: 22,
-		// });
-		// const user = await users.findOne({ name: 'Ihor' });
-		// console.log(user);
-
-		// res.writeHead(200);
-    // res.end("My server!");
 	} catch (error) {
 		console.log(error);
 	}
