@@ -24,10 +24,13 @@ const start = async (req, res) => {
 		// 	};
 			
 			const trains = client.db().collection('trains');
-			const result = await trains.find({});
-			console.log(result);
+			const result = await trains.find().toArray();
+			// console.log(result);
+			// console.log(JSON.stringify(result));
+
+			res.setHeader('Content-Type', 'application/json');
 			res.writeHead(200);
-			res.end('ok');
+			res.end(JSON.stringify(result));
 		};
 
 		if (req.method === 'POST') {
@@ -42,7 +45,7 @@ const start = async (req, res) => {
 				// console.log(body);
 
 				const bodyJson = JSON.parse(body);
-				console.log(bodyJson);
+				//console.log(bodyJson);
 
 				const trains = client.db().collection('trains');
 				await trains.insertOne(bodyJson);
