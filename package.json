@@ -4,14 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "debug": "nodemon index.js"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": "10.x"
+    "node": "16.16.0"
   },
   "dependencies": {
     "body-parser": "^1.20.1",
