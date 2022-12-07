@@ -99,8 +99,9 @@ const start = async (req, res) => {
 		console.log(error);
 	}
 };
+const port = process.env.PORT || 8000;
 
 const server = http.createServer(start);
-server.listen(process.env.SERVER_PORT || 5000, process.env.SERVER_HOST || 'localhost', () => {
-	console.log(`Server is running on http://${process.env.SERVER_HOST || 'localhost'}:${process.env.SERVER_PORT || 5000}`);
+server.listen(port, () => {
+	console.log(`Server is running on http://${process.env.SERVER_HOST || 'localhost'}:${port}`);
 });
