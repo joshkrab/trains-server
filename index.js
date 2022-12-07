@@ -5,7 +5,6 @@ const { parse } = require('querystring');
 const bodyParser = require('body-parser')
 const { MongoClient, ObjectId } = require('mongodb');
 const client = new MongoClient(process.env.MONGO_URL);
-//88
 
 const start = async (req, res) => { 
 	try {
