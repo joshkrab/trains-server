@@ -16,10 +16,15 @@ const start = async (req, res) => {
 
 		const headers = {
 			'Content-Type': 'application/json',
-			'Access-Control-Request-Method': '*',
 			'Access-Control-Allow-Origin': req.headers.origin,
 			'Access-Control-Allow-Methods': 'OPTIONS, POST, GET, DELETE, PUT',
 			'Access-Control-Max-Age': 2592000,
+		};
+
+		if (req.method === 'OPTIONS') {
+    res.writeHead(204, headers);
+    res.end();
+    return;
 		};
 
 
