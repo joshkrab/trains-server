@@ -10,7 +10,7 @@ const client = new MongoClient(process.env.MONGO_URL);
 const start = async (req, res) => { 
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Content-Type, Authorization',);	
-  res.setHeader('Access-Control-Allow-Methods', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST, GET, DELETE, PUT');
   res.setHeader("Content-Type", "application/json");
 
 	
