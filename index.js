@@ -109,8 +109,6 @@ const start = async (req, res) => {
 				res.end(JSON.stringify(result));
 			});
 		};
-		res.writeHead(405);
-		res.end(`${req.method} is not allowed for the request.`);
 
 	} catch (error) {
 		console.log('Схопили');
