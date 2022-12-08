@@ -49,6 +49,10 @@ const start = async (req, res) => {
 	
 			const result = await trains.find().toArray();
 			res.setHeader('Content-Type', 'application/json');
+
+			res.setHeader('Access-Control-Allow-Origin', '*');
+			res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, DELETE');
+			res.setHeader('Access-Control-Max-Age', 2592000);
 			res.writeHead(200);
 			res.end(JSON.stringify(result));
 		};
@@ -69,7 +73,11 @@ const start = async (req, res) => {
 				await trains.insertOne(bodyJson);
 				const result = await trains.find().toArray();
 				res.setHeader('Content-Type', 'application/json');
-				res.writeHead(200);
+
+			res.setHeader('Access-Control-Allow-Origin', '*');
+			res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST');
+			res.setHeader('Access-Control-Max-Age', 2592000);
+			res.writeHead(200);
 				res.end(JSON.stringify(result));
 			});
 		};
@@ -94,6 +102,10 @@ const start = async (req, res) => {
 				const result = await trains.find().toArray();
 
 				res.setHeader('Content-Type', 'application/json');
+
+				res.setHeader('Access-Control-Allow-Origin', '*');
+				res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, PUT');
+				res.setHeader('Access-Control-Max-Age', 2592000);
 				res.writeHead(200);
 				res.end(JSON.stringify(result));
 			});
