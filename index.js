@@ -11,6 +11,7 @@ const start = async (req, res) => {
 	const headers = {
 		"Access-Control-Allow-Origin": "*",
 		"Access-Control-Allow-Methods": "OPTIONS, POST, GET, DELETE, PUT, PATCH",
+		"Access-Control-Allow-Headers": "Content-Type, Authorization",
 		"Access-Control-Max-Age": 2592000,
 		"Content-Type": "application/json"
 	};
