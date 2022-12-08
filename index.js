@@ -31,7 +31,7 @@ const start = async (req, res) => {
 		if (req.method === 'GET') {
 
 			let urlRequest = url.parse(req.url, true);
-			let sort = urlRequest.query.sort || 'startDate';
+			let sort = urlRequest.query.sort || {startDate: -1};
 			let search = urlRequest.query.search ?
 				{
 					$or: [
