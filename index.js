@@ -32,7 +32,7 @@ const start = async (req, res) => {
 			res.setHeader('Content-Type', 'application/json');
 
 			res.setHeader('Access-Control-Allow-Origin', '*');
-			res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
+			res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, DELETE, PUT');
 			res.setHeader('Access-Control-Max-Age', 2592000); // 30 days
 			res.writeHead(200);
 			res.end(JSON.stringify(result));
@@ -51,7 +51,7 @@ const start = async (req, res) => {
 			res.setHeader('Content-Type', 'application/json');
 
 			res.setHeader('Access-Control-Allow-Origin', '*');
-			res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, DELETE');
+			res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, DELETE, PUT');
 			res.setHeader('Access-Control-Max-Age', 2592000);
 			res.writeHead(200);
 			res.end(JSON.stringify(result));
@@ -75,7 +75,7 @@ const start = async (req, res) => {
 				res.setHeader('Content-Type', 'application/json');
 
 			res.setHeader('Access-Control-Allow-Origin', '*');
-			res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST');
+			res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, DELETE, PUT');
 			res.setHeader('Access-Control-Max-Age', 2592000);
 			res.writeHead(200);
 				res.end(JSON.stringify(result));
@@ -104,7 +104,7 @@ const start = async (req, res) => {
 				res.setHeader('Content-Type', 'application/json');
 
 				res.setHeader('Access-Control-Allow-Origin', '*');
-				res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, PUT');
+				res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, DELETE, PUT');
 				res.setHeader('Access-Control-Max-Age', 2592000);
 				res.writeHead(200);
 				res.end(JSON.stringify(result));
