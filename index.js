@@ -8,6 +8,11 @@ const client = new MongoClient(process.env.MONGO_URL);
 // ,"debug": "nodemon index.js"
 
 const start = async (req, res) => { 
+	const headers = {
+		"Access-Control-Allow-Origin": "*",
+		"Access-Control-Allow-Methods": "OPTIONS, POST, GET, DELETE, PUT",
+		"Access-Control-Max-Age": 2592000
+	};
 
 	try {
 		await client.connect(); 
@@ -16,12 +21,9 @@ const start = async (req, res) => {
 		console.log(req.method);
 
 		if (req.method === 'OPTIONS') {
-			res.writeHead(200, {
-			"Access-Control-Allow-Origin":"*", // REQUIRED CORS HEADER
-			"Access-Control-Allow-Methods":"GET, POST, DELETE, PUT, PATCH", // REQUIRED CORS HEADER
-			"Access-Control-Allow-Headers":"Origin, X-Requested-With, Content-Type, Accept" // REQUIRED CORS HEADER
-		});
-		res.end();
+			res.writeHead(204, headers);
+			res.end();
+			return;
 		};
 
 		if (req.method === 'GET') {
@@ -78,12 +80,9 @@ const start = async (req, res) => {
 				await trains.insertOne(bodyJson);
 				const result = await trains.find().toArray();
 
-				res.writeHead(200, {
-					"Content-Type": "application/json",
-					"Access-Control-Allow-Origin": "*",
-					"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
-				});
+				res.writeHead(200, headers);
 				res.end(JSON.stringify(result));
+				return;
 			});
 		};
 
