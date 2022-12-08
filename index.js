@@ -105,6 +105,7 @@ const start = async (req, res) => {
 				await trains.updateOne(conditions, { $set: bodyJson });
 				const result = await trains.find().toArray();
 
+				res.setHeader('Content-Type', 'application/json');
 				res.writeHead(200, headers);
 				res.end(JSON.stringify(result));
 				return;
