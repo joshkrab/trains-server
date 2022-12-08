@@ -40,6 +40,7 @@ const start = async (req, res) => {
 
 			const result = await trains.find(search).sort(sort).toArray();
 
+			res.setHeader('Content-Type', 'application/json');
 			res.writeHead(200, headers);
 			res.end(JSON.stringify(result));
 		};
@@ -55,6 +56,7 @@ const start = async (req, res) => {
 	
 			const result = await trains.find().toArray();
 
+			res.setHeader('Content-Type', 'application/json');
 			res.writeHead(200, headers);
 			res.end(JSON.stringify(result));
 		};
@@ -75,6 +77,7 @@ const start = async (req, res) => {
 				await trains.insertOne(bodyJson);
 				const result = await trains.find().toArray();
 
+				res.setHeader('Content-Type', 'application/json');
 				res.writeHead(200, headers);
 				res.end(JSON.stringify(result));
 			});
@@ -99,13 +102,13 @@ const start = async (req, res) => {
 
 				const result = await trains.find().toArray();
 
+				res.setHeader('Content-Type', 'application/json');
 				res.writeHead(200, headers);
 				res.end(JSON.stringify(result));
 			});
 		};
 		res.writeHead(405, headers);
 		res.end(`${req.method} is not allowed for the request.`);
-
 
 	} catch (error) {
 		console.log(error);
