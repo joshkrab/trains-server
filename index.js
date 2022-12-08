@@ -21,8 +21,8 @@ const start = async (req, res) => {
 		console.log(req.method);
 
 		if (req.method === 'OPTIONS') {
-			res.writeHead(200);
-			res.end({});
+			res.writeHead(204);
+			res.end();
 		};
 
 		if (req.method === 'GET') {
