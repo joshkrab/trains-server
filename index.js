@@ -60,8 +60,9 @@ const start = async (req, res) => {
 	
 			const result = await trains.find().toArray();
 
-			res.writeHead(200);
-			res.end(JSON.stringify(result));
+				res.writeHead(200, headers);
+				res.end(JSON.stringify(result));
+				return;
 		};
 
 		if (req.method === 'POST') {
@@ -105,8 +106,9 @@ const start = async (req, res) => {
 
 				const result = await trains.find().toArray();
 
-				res.writeHead(200);
+				res.writeHead(200, headers);
 				res.end(JSON.stringify(result));
+				return;
 			});
 		};
 
