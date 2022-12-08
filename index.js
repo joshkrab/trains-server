@@ -8,7 +8,7 @@ const client = new MongoClient(process.env.MONGO_URL);
 // ,"debug": "nodemon index.js"
 
 const start = async (req, res) => { 
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested, Content-Type',);	
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST, GET, DELETE, PUT');
   res.setHeader("Content-Type", "application/json");
