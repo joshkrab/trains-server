@@ -15,7 +15,7 @@ const start = async (req, res) => {
 		console.log(req.method);
 
 		const headers = {
-			'Access-Control-Allow-Origin': 'http://localhost:3000',
+			'Access-Control-Allow-Origin': '*',
 			'Access-Control-Allow-Methods': 'OPTIONS, POST, GET, DELETE, PUT',
 			'Access-Control-Max-Age': 2592000,
 		};
