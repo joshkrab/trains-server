@@ -10,7 +10,7 @@ const client = new MongoClient(process.env.MONGO_URL);
 const start = async (req, res) => { 
 	const headers = {
 		"Access-Control-Allow-Origin": "*",
-		"Access-Control-Allow-Methods": "OPTIONS, POST, GET, DELETE, PUT",
+		"Access-Control-Allow-Methods": "OPTIONS, POST, GET, DELETE, PUT, PATCH",
 		"Access-Control-Max-Age": 2592000
 	};
 
@@ -87,7 +87,7 @@ const start = async (req, res) => {
 			});
 		};
 
-		if (req.method === 'PUT') {
+		if (req.method === 'PATCH') {
 			let body = '';
 			req.on('data', chunk => {
 				body += chunk.toString();
