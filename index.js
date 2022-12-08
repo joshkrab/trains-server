@@ -9,8 +9,9 @@ const client = new MongoClient(process.env.MONGO_URL);
 
 const start = async (req, res) => { 
 	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested, Content-Type',);	
-  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST, GET, DELETE, PUT');
+	res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested, X-Requested-With, Content-Type',);	
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader(('Access-Control-Allow-Credentials', true));
   res.setHeader("Content-Type", "application/json");
 
 	try {
@@ -106,6 +107,7 @@ const start = async (req, res) => {
 		res.end(`${req.method} is not allowed for the request.`);
 
 	} catch (error) {
+		console.log('Схопили');
 		console.log(error);
 	}
 };
