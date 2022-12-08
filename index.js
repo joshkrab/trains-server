@@ -9,8 +9,10 @@ const client = new MongoClient(process.env.MONGO_URL);
 
 const start = async (req, res) => { 
 	res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST, GET, DELETE, PUT');
-	res.setHeader('Access-Control-Max-Age', 60 * 60 * 24 * 30);
+	res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Content-Type, Authorization',);	
+  res.setHeader('Access-Control-Allow-Methods', '*');
+  res.setHeader("Content-Type", "application/json");
+
 	
 	try {
 		await client.connect(); 
@@ -19,7 +21,7 @@ const start = async (req, res) => {
 		console.log(req.method);
 
 		if (req.method === 'OPTIONS') {
-    res.writeHead(202);
+    res.writeHead(200);
     res.end();
 		};
 
@@ -38,7 +40,6 @@ const start = async (req, res) => {
 
 			const result = await trains.find(search).sort(sort).toArray();
 
-			res.setHeader('Content-Type', 'application/json');
 			res.writeHead(200);
 			res.end(JSON.stringify(result));
 		};
@@ -54,7 +55,6 @@ const start = async (req, res) => {
 	
 			const result = await trains.find().toArray();
 
-			res.setHeader('Content-Type', 'application/json');
 			res.writeHead(200);
 			res.end(JSON.stringify(result));
 		};
@@ -75,7 +75,6 @@ const start = async (req, res) => {
 				await trains.insertOne(bodyJson);
 				const result = await trains.find().toArray();
 
-				res.setHeader('Content-Type', 'application/json');
 				res.writeHead(200);
 				res.end(JSON.stringify(result));
 			});
@@ -100,7 +99,6 @@ const start = async (req, res) => {
 
 				const result = await trains.find().toArray();
 
-				res.setHeader('Content-Type', 'application/json');
 				res.writeHead(200);
 				res.end(JSON.stringify(result));
 			});
