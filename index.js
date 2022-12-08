@@ -103,7 +103,6 @@ const start = async (req, res) => {
 				};
 
 				await trains.updateOne(conditions, { $set: bodyJson });
-
 				const result = await trains.find().toArray();
 
 				res.writeHead(200, headers);
