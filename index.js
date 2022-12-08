@@ -39,7 +39,11 @@ const start = async (req, res) => {
 
 			const result = await trains.find(search).sort(sort).toArray();
 
-			res.writeHead(200);
+			res.writeHead(200, {
+				"Content-Type": "application/json",
+				"Access-Control-Allow-Origin": "*",
+				"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+			});
 			res.end(JSON.stringify(result));
 		};
 
