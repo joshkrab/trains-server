@@ -8,20 +8,18 @@ const client = new MongoClient(process.env.MONGO_URL);
 // ,"debug": "nodemon index.js"
 
 const start = async (req, res) => { 
+	res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST, GET, DELETE, PUT');
+	res.setHeader('Access-Control-Max-Age', 60 * 60 * 24 * 30);
+	
 	try {
 		await client.connect(); 
 		const trains = client.db().collection('trains');
 		console.log('Connected to DB');
 		console.log(req.method);
 
-		const headers = {
-			'Access-Control-Allow-Origin': '*',
-			'Access-Control-Allow-Methods': 'OPTIONS, POST, GET, DELETE, PUT',
-			'Access-Control-Max-Age': 2592000,
-		};
-
 		if (req.method === 'OPTIONS') {
-    res.writeHead(204, headers);
+    res.writeHead(204);
     res.end();
 		};
 
@@ -41,7 +39,7 @@ const start = async (req, res) => {
 			const result = await trains.find(search).sort(sort).toArray();
 
 			res.setHeader('Content-Type', 'application/json');
-			res.writeHead(200, headers);
+			res.writeHead(200);
 			res.end(JSON.stringify(result));
 		};
 
@@ -57,7 +55,7 @@ const start = async (req, res) => {
 			const result = await trains.find().toArray();
 
 			res.setHeader('Content-Type', 'application/json');
-			res.writeHead(200, headers);
+			res.writeHead(200);
 			res.end(JSON.stringify(result));
 		};
 
@@ -78,7 +76,7 @@ const start = async (req, res) => {
 				const result = await trains.find().toArray();
 
 				res.setHeader('Content-Type', 'application/json');
-				res.writeHead(200, headers);
+				res.writeHead(200);
 				res.end(JSON.stringify(result));
 			});
 		};
@@ -103,11 +101,11 @@ const start = async (req, res) => {
 				const result = await trains.find().toArray();
 
 				res.setHeader('Content-Type', 'application/json');
-				res.writeHead(200, headers);
+				res.writeHead(200);
 				res.end(JSON.stringify(result));
 			});
 		};
-		res.writeHead(405, headers);
+		res.writeHead(405);
 		res.end(`${req.method} is not allowed for the request.`);
 
 	} catch (error) {
