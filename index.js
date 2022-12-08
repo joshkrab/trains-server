@@ -14,6 +14,14 @@ const start = async (req, res) => {
 		console.log('Connected to DB');
 		console.log(req.method);
 
+		const headers = {
+			'Content-Type':'application/json',
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Methods': 'OPTIONS, POST, GET, DELETE, PUT',
+			'Access-Control-Max-Age': 2592000,
+		};
+
+
 		if (req.method === 'GET') {
 
 			let urlRequest = url.parse(req.url, true);
@@ -29,12 +37,7 @@ const start = async (req, res) => {
 
 			const result = await trains.find(search).sort(sort).toArray();
 
-			res.setHeader('Content-Type', 'application/json');
-
-			res.setHeader('Access-Control-Allow-Origin', '*');
-			res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, DELETE, PUT');
-			res.setHeader('Access-Control-Max-Age', 2592000); // 30 days
-			res.writeHead(200);
+			res.writeHead(200, headers);
 			res.end(JSON.stringify(result));
 		};
 
@@ -48,12 +51,8 @@ const start = async (req, res) => {
 			await trains.deleteOne(conditions);
 	
 			const result = await trains.find().toArray();
-			res.setHeader('Content-Type', 'application/json');
 
-			res.setHeader('Access-Control-Allow-Origin', '*');
-			res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, DELETE, PUT');
-			res.setHeader('Access-Control-Max-Age', 2592000);
-			res.writeHead(200);
+			res.writeHead(200, headers);
 			res.end(JSON.stringify(result));
 		};
 
@@ -72,12 +71,8 @@ const start = async (req, res) => {
 
 				await trains.insertOne(bodyJson);
 				const result = await trains.find().toArray();
-				res.setHeader('Content-Type', 'application/json');
 
-			res.setHeader('Access-Control-Allow-Origin', '*');
-			res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, DELETE, PUT');
-			res.setHeader('Access-Control-Max-Age', 2592000);
-			res.writeHead(200);
+				res.writeHead(200, headers);
 				res.end(JSON.stringify(result));
 			});
 		};
@@ -101,15 +96,13 @@ const start = async (req, res) => {
 
 				const result = await trains.find().toArray();
 
-				res.setHeader('Content-Type', 'application/json');
-
-				res.setHeader('Access-Control-Allow-Origin', '*');
-				res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, DELETE, PUT');
-				res.setHeader('Access-Control-Max-Age', 2592000);
-				res.writeHead(200);
+				res.writeHead(200, headers);
 				res.end(JSON.stringify(result));
 			});
 		};
+		res.writeHead(405, headers);
+		res.end(`${req.method} is not allowed for the request.`);
+
 
 	} catch (error) {
 		console.log(error);
